@@ -1,0 +1,1 @@
+<a href="<?=$link?>" class="btn btn-primary btn-flat pull-right">Tambah</a>

@@ -1,0 +1,1 @@
+<a onclick="hapus('<?=$link?>', event)" class="btn btn-flat btn-danger">Hapus</a>
