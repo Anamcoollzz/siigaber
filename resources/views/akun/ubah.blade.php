@@ -12,5 +12,3 @@
 @include('input_pass_conf')
 @include('select',['id'=>'role','label'=>'Role','selectData'=>$listRole,'selected'=>$d->role])
 @endsection
-@extends('create-form')
-@section('form')
