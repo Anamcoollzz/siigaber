@@ -53,6 +53,23 @@
           </li>
         </ul>
       </li>
+      <li class="treeview @if(in_array($active, ['gudang.index','gudang.create'])) active @endif ">
+        <a href="#">
+          <i class="fa fa-university"></i>
+          <span>Gudang</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li @if(in_array($active, ['gudang.create'])) class="active" @endif>
+            <a href="{{ route('gudang.create') }}"><i class="fa fa-circle-o"></i> Tambah Gudang</a>
+          </li>
+          <li @if(in_array($active, ['gudang.index'])) class="active" @endif>
+            <a href="{{ route('gudang.index') }}"><i class="fa fa-circle-o"></i> Data Gudang</a>
+          </li>
+        </ul>
+      </li>
     </ul>
   </section>
 </aside>
