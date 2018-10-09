@@ -43,7 +43,7 @@ class AkunController extends Controller
     {
         return view('akun.tambah', [
             'title'         => 'Tambah Akun',
-            'modul_link'    => url()->previous(),
+            'modul_link'    => route('akun.index'),
             'modul'         => 'Akun',
             'action'        => route('akun.store'),
             'active'        => 'akun.create',
@@ -101,7 +101,7 @@ class AkunController extends Controller
         return view('akun.ubah', [
             'd'             => $akun,
             'title'         => 'Ubah Akun',
-            'modul_link'    => url()->previous(),
+            'modul_link'    => route('akun.index'),
             'modul'         => 'Akun',
             'action'        => route('akun.update', $akun->id),
             'active'        => 'akun.edit',
