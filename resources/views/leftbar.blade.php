@@ -36,6 +36,23 @@
           </li>
         </ul>
       </li>
+      <li class="treeview @if(in_array($active, ['jenis-beras.index','jenis-beras.create'])) active @endif ">
+        <a href="#">
+          <i class="fa fa-cubes"></i>
+          <span>Jenis Beras</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li @if(in_array($active, ['jenis-beras.create'])) class="active" @endif>
+            <a href="{{ route('jenis-beras.create') }}"><i class="fa fa-circle-o"></i> Tambah Jenis Beras</a>
+          </li>
+          <li @if(in_array($active, ['jenis-beras.index'])) class="active" @endif>
+            <a href="{{ route('jenis-beras.index') }}"><i class="fa fa-circle-o"></i> Data Jenis Beras</a>
+          </li>
+        </ul>
+      </li>
     </ul>
   </section>
 </aside>
