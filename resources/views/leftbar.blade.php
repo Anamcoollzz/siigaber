@@ -87,6 +87,23 @@
           </li>
         </ul>
       </li>
+      <li class="treeview @if(in_array($active, ['pengadaan.index','pengadaan.create'])) active @endif ">
+        <a href="#">
+          <i class="fa fa-cart-arrow-down"></i>
+          <span>Pengadaan</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li @if(in_array($active, ['pengadaan.create'])) class="active" @endif>
+            <a href="{{ route('pengadaan.create') }}"><i class="fa fa-circle-o"></i> Tambah Pengadaan</a>
+          </li>
+          <li @if(in_array($active, ['pengadaan.index'])) class="active" @endif>
+            <a href="{{ route('pengadaan.index') }}"><i class="fa fa-circle-o"></i> Data Pengadaan</a>
+          </li>
+        </ul>
+      </li>
     </ul>
   </section>
 </aside>

@@ -1,0 +1,9 @@
+@extends('create-form')
+@section('form')
+@method('PUT')
+@include('input',['id'=>'nama','label'=>'Nama','value'=>$d->nama])
+@include('input',['id'=>'bidang','label'=>'Bidang','value'=>$d->bidang])
+@include('input',['id'=>'kontak','label'=>'Kontak','value'=>$d->kontak])
+@include('textarea',['id'=>'deskripsi','label'=>'Deskripsi','value'=>$d->deskripsi])
+@include('textarea',['id'=>'alamat','label'=>'Alamat','value'=>$d->alamat])
+@endsection
