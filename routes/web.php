@@ -7,3 +7,4 @@ Route::get('/',function()
 Route::resource('akun', 'AkunController');
 Route::resource('jenis-beras', 'JenisBerasController');
 Route::resource('gudang', 'GudangController');
+Route::resource('mitra-kerja', 'MitraKerjaController');

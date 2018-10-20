@@ -70,6 +70,23 @@
           </li>
         </ul>
       </li>
+      <li class="treeview @if(in_array($active, ['mitra-kerja.index','mitra-kerja.create'])) active @endif ">
+        <a href="#">
+          <i class="fa fa-user-plus"></i>
+          <span>Mitra Kerja</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li @if(in_array($active, ['mitra-kerja.create'])) class="active" @endif>
+            <a href="{{ route('mitra-kerja.create') }}"><i class="fa fa-circle-o"></i> Tambah Mitra Kerja</a>
+          </li>
+          <li @if(in_array($active, ['mitra-kerja.index'])) class="active" @endif>
+            <a href="{{ route('mitra-kerja.index') }}"><i class="fa fa-circle-o"></i> Data Mitra Kerja</a>
+          </li>
+        </ul>
+      </li>
     </ul>
   </section>
 </aside>
