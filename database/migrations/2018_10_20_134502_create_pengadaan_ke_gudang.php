@@ -18,6 +18,7 @@ class CreatePengadaanKeGudang extends Migration
             $table->integer('id_gudang')->unsigned();
             $table->foreign('id_gudang')->on('gudang')->references('id')->onUpdate('cascade')->onDelete('cascade');
             $table->double('jumlah');
+            $table->string('status', 50);
         });
     }
 

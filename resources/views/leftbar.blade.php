@@ -29,10 +29,10 @@
         </a>
         <ul class="treeview-menu">
           <li @if(in_array($active, ['akun.create'])) class="active" @endif>
-            <a href="{{ route('akun.create') }}"><i class="fa fa-circle-o"></i> Tambah Akun</a>
+            <a href="{{ route('akun.create') }}">@if(in_array($active, ['akun.create'])) <i class="fa fa-check-circle-o"></i> @else <i class="fa fa-circle-o"></i> @endif Tambah Akun</a>
           </li>
           <li @if(in_array($active, ['akun.index'])) class="active" @endif>
-            <a href="{{ route('akun.index') }}"><i class="fa fa-circle-o"></i> Data Akun</a>
+            <a href="{{ route('akun.index') }}">@if(in_array($active, ['akun.index'])) <i class="fa fa-check-circle-o"></i> @else <i class="fa fa-circle-o"></i> @endif Data Akun</a>
           </li>
         </ul>
       </li>
@@ -46,10 +46,10 @@
         </a>
         <ul class="treeview-menu">
           <li @if(in_array($active, ['jenis-beras.create'])) class="active" @endif>
-            <a href="{{ route('jenis-beras.create') }}"><i class="fa fa-circle-o"></i> Tambah Jenis Beras</a>
+            <a href="{{ route('jenis-beras.create') }}">@if(in_array($active, ['jenis-beras.create'])) <i class="fa fa-check-circle-o"></i> @else <i class="fa fa-circle-o"></i> @endif Tambah Jenis Beras</a>
           </li>
           <li @if(in_array($active, ['jenis-beras.index'])) class="active" @endif>
-            <a href="{{ route('jenis-beras.index') }}"><i class="fa fa-circle-o"></i> Data Jenis Beras</a>
+            <a href="{{ route('jenis-beras.index') }}">@if(in_array($active, ['jenis-beras.index'])) <i class="fa fa-check-circle-o"></i> @else <i class="fa fa-circle-o"></i> @endif Data Jenis Beras</a>
           </li>
         </ul>
       </li>
@@ -63,10 +63,10 @@
         </a>
         <ul class="treeview-menu">
           <li @if(in_array($active, ['gudang.create'])) class="active" @endif>
-            <a href="{{ route('gudang.create') }}"><i class="fa fa-circle-o"></i> Tambah Gudang</a>
+            <a href="{{ route('gudang.create') }}">@if(in_array($active, ['gudang.create'])) <i class="fa fa-check-circle-o"></i> @else <i class="fa fa-circle-o"></i> @endif Tambah Gudang</a>
           </li>
           <li @if(in_array($active, ['gudang.index'])) class="active" @endif>
-            <a href="{{ route('gudang.index') }}"><i class="fa fa-circle-o"></i> Data Gudang</a>
+            <a href="{{ route('gudang.index') }}">@if(in_array($active, ['gudang.index'])) <i class="fa fa-check-circle-o"></i> @else <i class="fa fa-circle-o"></i> @endif Data Gudang</a>
           </li>
         </ul>
       </li>
@@ -80,10 +80,10 @@
         </a>
         <ul class="treeview-menu">
           <li @if(in_array($active, ['mitra-kerja.create'])) class="active" @endif>
-            <a href="{{ route('mitra-kerja.create') }}"><i class="fa fa-circle-o"></i> Tambah Mitra Kerja</a>
+            <a href="{{ route('mitra-kerja.create') }}">@if(in_array($active, ['mitra-kerja.create'])) <i class="fa fa-check-circle-o"></i> @else <i class="fa fa-circle-o"></i> @endif Tambah Mitra Kerja</a>
           </li>
           <li @if(in_array($active, ['mitra-kerja.index'])) class="active" @endif>
-            <a href="{{ route('mitra-kerja.index') }}"><i class="fa fa-circle-o"></i> Data Mitra Kerja</a>
+            <a href="{{ route('mitra-kerja.index') }}">@if(in_array($active, ['mitra-kerja.index'])) <i class="fa fa-check-circle-o"></i> @else <i class="fa fa-circle-o"></i> @endif Data Mitra Kerja</a>
           </li>
         </ul>
       </li>
@@ -97,10 +97,10 @@
         </a>
         <ul class="treeview-menu">
           <li @if(in_array($active, ['pengadaan.create'])) class="active" @endif>
-            <a href="{{ route('pengadaan.create') }}"><i class="fa fa-circle-o"></i> Tambah Pengadaan</a>
+            <a href="{{ route('pengadaan.create') }}">@if(in_array($active, ['pengadaan.create'])) <i class="fa fa-check-circle-o"></i> @else <i class="fa fa-circle-o"></i> @endif Tambah Pengadaan</a>
           </li>
           <li @if(in_array($active, ['pengadaan.index'])) class="active" @endif>
-            <a href="{{ route('pengadaan.index') }}"><i class="fa fa-circle-o"></i> Data Pengadaan</a>
+            <a href="{{ route('pengadaan.index') }}">@if(in_array($active, ['pengadaan.index'])) <i class="fa fa-check-circle-o"></i> @else <i class="fa fa-circle-o"></i> @endif Data Pengadaan</a>
           </li>
         </ul>
       </li>
