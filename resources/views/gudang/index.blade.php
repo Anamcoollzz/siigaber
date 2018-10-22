@@ -27,6 +27,7 @@
         <td>{{ $d->kapasitas }}</td>
         <td>
             @include('edit_button', ['link' => route('gudang.edit', [$d->id])])
+            @include('delete_button', ['link' => route('gudang.destroy', [$d->id])])
         </td>
     </tr>
     @endforeach

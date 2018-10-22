@@ -30,7 +30,7 @@
         <td>{{ $d->role }}</td>
         <td>
             @include('edit_button', ['link' => route('akun.edit', [$d->id])])
-            {{-- @include('delete_button', ['link' => route('akun.destroy', [$d->id])]) --}}
+            @include('delete_button', ['link' => route('akun.destroy', [$d->id])])
         </td>
     </tr>
     @endforeach

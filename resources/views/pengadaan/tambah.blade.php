@@ -1,7 +1,7 @@
 @extends('create-form')
 @section('form')
-@include('input',['id'=>'tanggal','label'=>'Tanggal','value'=>date('Y-m-d'),'readonly'=>true])
-@include('input_number',['id'=>'jumlah','label'=>'Jumlah'])
+@include('datepicker',['id'=>'tanggal','label'=>'Tanggal','value'=>date('Y-m-d')])
+@include('input_number',['id'=>'jumlah','label'=>'Jumlah','required'=>true])
 @include('input_number',['id'=>'biaya','label'=>'Biaya Pengadaan'])
 @include('input_number',['id'=>'biaya_transport','label'=>'Biaya Transportasi'])
 @include('select',['id'=>'jenis','label'=>'Jenis','selectData'=>[['text'=>'Beras','value'=>'Beras'],['text'=>'Gabah','value'=>'Gabah']]])
@@ -10,28 +10,25 @@
 	<h4>Pilih Gudang</h4>
 	@foreach ($gudang as $g)
 	<label>
-		<input value="{{$g->id}}" id="id_gudang" data-id="{{'id_gudang'.$g->id}}" name="id_gudang[]" type="checkbox" class="minimal" >&nbsp;&nbsp;&nbsp;
+		<input @isset(old('id_gudang')[$g->id]) checked="checked" @endisset value="{{$g->id}}" id="id_gudang" data-id="{{'area_gudang'.$g->id}}" name="id_gudang[{{$g->id}}]" type="checkbox" class="minimal" >&nbsp;&nbsp;&nbsp;
 		{{$g->nama}}
 	</label>
 	&nbsp;&nbsp;&nbsp;
 	@endforeach
 </div>
-@if(count($errors->all()) > 0)
-@foreach (old('isi_gudang') as $g)
-<div id="id_gudang{{$g}}">
-@include('input',['id'=>'isi_gudang','array'=>true,'label'=>'Isi '.$gudang[$loop->index]->nama,'index'=>$loop->index])&nbsp;&nbsp;&nbsp;
-</div>
-@endforeach
-@else
 @foreach ($gudang as $g)
-<div id="id_gudang{{$g->id}}">
-	@include('input',['id'=>'isi_gudang','array'=>true,'label'=>'Isi '.$g->nama])&nbsp;&nbsp;&nbsp;
+<div id="area_gudang{{$g->id}}" @isset(old('id_gudang')[$g->id]) @else style="display: none;" @endisset class="form-group {{ isset($errors) ? ($errors->has('isi_gudang_'.$g->id) ? 'has-error': '' ) : '' }}">
+	<label for="{{ 'isi_gudang_'.$g->id }}" class="col-lg-2 control-label">{{ $g->nama }}</label>
+	<div class="col-sm-6">
+		<input value="{{old('isi_gudang_'.$g->id)}}" name="{{ isset($name) ? $name : (isset($array) ? 'isi_gudang_'.$g->id.'[]' : 'isi_gudang_'.$g->id) }}" type="text" class="form-control" id="{{ 'isi_gudang_'.$g->id }}" placeholder="{{ $g->nama }}">
+		@if($errors->has('isi_gudang_'.$g->id))<span class="help-block">{{$errors->first('isi_gudang_'.$g->id)}}</span>@endif
+	</div>
 </div>
 @endforeach
-@endif
 @endsection
 
 @include('import-icheck')
+@include('import-datepicker')
 @push('script')
 <script>
 	$(document).ready(function(){

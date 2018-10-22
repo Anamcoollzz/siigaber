@@ -13,10 +13,16 @@ class PengadaanKeGudang extends Model
 	protected $fillable = [
 		'id_gudang',
 		'jumlah',
+		'id_pengadaan',
 	];
 
 	public function pengadaan()
 	{
 		return $this->hasMany('App\Pengadaan', 'id_pengadaan');
+	}
+
+	public function gudang()
+	{
+		return $this->belongsTo('App\Gudang', 'id_gudang');
 	}
 }

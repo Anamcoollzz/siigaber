@@ -21,6 +21,7 @@
         <td>{{ $d->nama }}</td>
         <td>
             @include('edit_button', ['link' => route('jenis-beras.edit', [$d->id])])
+            @include('delete_button', ['link' => route('jenis-beras.destroy', [$d->id])])
         </td>
     </tr>
     @endforeach

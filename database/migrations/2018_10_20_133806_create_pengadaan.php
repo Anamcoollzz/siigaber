@@ -22,6 +22,8 @@ class CreatePengadaan extends Migration
             $table->enum('jenis_pengadaan',['Beras','Gabah']);
             $table->integer('id_mitra_kerja')->unsigned();
             $table->foreign('id_mitra_kerja')->on('mitra_kerja')->references('id')->onUpdate('cascade')->onDelete('cascade');
+            $table->string('status', 50);
+            $table->timestamps();
         });
     }
 

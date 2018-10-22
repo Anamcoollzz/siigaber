@@ -143,7 +143,7 @@ class AkunController extends Controller
      * @param  \App\Akun  $akun
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Akun $akun)
+    public function destroy(User $akun)
     {
         $akun->delete();
         return redirect()->back()->with('success_msg', 'Akun berhasil dihapus');

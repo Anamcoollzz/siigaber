@@ -9,7 +9,12 @@
         @yield('other-box')
       </div>
       <div class="col-md-12">
-        @include('error_msg')
+        {{-- @include('error_msg') --}}
+        @if (session('error_msg'))
+        <div class="alert alert-danger">  
+{{session('error_msg')}}
+        </div>
+        @endif
         <div class="box box-primary">
           <div class="box-header with-border">
             <h3 class="box-title">{{ $title }}</h3>

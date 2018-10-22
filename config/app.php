@@ -14,6 +14,7 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
+    'is_online'=>env('ONLINE', false),
     'mobile_name'=>env('APP_MOBILE_NAME', 'Laravel'),
 
     /*

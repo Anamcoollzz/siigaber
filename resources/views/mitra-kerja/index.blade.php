@@ -33,6 +33,7 @@
         <td>{{ $d->alamat }}</td>
         <td>
             @include('edit_button', ['link' => route('mitra-kerja.edit', [$d->id])])
+            @include('delete_button', ['link' => route('mitra-kerja.destroy', [$d->id])])
         </td>
     </tr>
     @endforeach
