@@ -12,6 +12,12 @@ Route::middleware('auth')->group(function(){
 	Route::resource('mitra-kerja', 'MitraKerjaController')->except('show');
 	Route::resource('pengadaan', 'PengadaanController');
 	Route::put('/pengadaan/{pengadaan}/verifikasi','PengadaanController@verifikasi')->name('pengadaan.verifikasi');
+	Route::resource('penggilingan', 'PenggilinganController');
+	Route::put('/penggilingan/{penggilingan}/verifikasi','PenggilinganController@verifikasi')->name('penggilingan.verifikasi');
+	Route::put('/penggilingan/{penggilingan}/selesai','PenggilinganController@selesai')->name('penggilingan.selesai');
+	Route::resource('pemasaran', 'PemasaranController');
+
+	Route::get('/keluar', 'HomeController@keluar');
 
 });
 

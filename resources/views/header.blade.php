@@ -11,16 +11,17 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="user-image" alt="User Image">
             <span class="hidden-xs text-capitalize">
-              {{-- {{ Auth::user()->nama_lengkap }} --}}
-              Belum Login
+              {{ Auth::user()->nama }}
+              {{-- Belum Login --}}
             </span>
           </a>
           <ul class="dropdown-menu">
             <li class="user-header">
               <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
               <p class="text-capitalize">
-                {{-- {{ Auth::user()->nama_lengkap }} --}}
-                Belum Login
+                {{ Auth::user()->nama }}
+                <br>
+                {{Auth::user()->role}}
               </p>
             </li>
             <li class="user-footer">
@@ -28,7 +29,7 @@
                 {{-- <a href="{{ route('profile') }}" class="btn btn-default btn-flat">Profil</a> --}}
               </div>
               <div class="pull-right">
-                {{-- <a href="<?=url('keluar')?>" class="btn btn-default btn-flat">Keluar</a> --}}
+                <a href="<?=url('keluar')?>" class="btn btn-default btn-flat">Keluar</a>
               </div>
             </li>
           </ul>

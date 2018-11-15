@@ -15,4 +15,16 @@ class JenisBeras extends Model
 		'nama',
 	];
 
+	public function scopeListMode($q)
+	{
+		$data = [];
+		foreach ($q->get() as $d) {
+			$data[] = [
+				'text'=>$d->nama,
+				'value'=>$d->id,
+			];
+		}
+		return $data;
+	}
+
 }

@@ -120,7 +120,7 @@ class AkunController extends Controller
     {
         $request->validate([
             'nama'=>'required|min:3', 
-            'username'=>'required|unique:users,username,1', 
+            'username'=>'required|unique:users,username,'.$akun->id, 
             'password'=>'nullable|confirmed|min:5', 
             'password_confirmation'=>'nullable|min:3', 
             'role'=>'required',

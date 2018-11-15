@@ -6,8 +6,8 @@
       </div>
       <div class="pull-left info">
         <p class="text-capitalize">
-          {{-- {{ Auth::user()->nama_lengkap }} --}}
-          Belum Login
+          {{ Auth::user()->nama }}
+          {{-- Belum Login --}}
         </p>
         <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
       </div>
@@ -89,7 +89,7 @@
       </li>
       <li class="treeview @if(in_array($active, ['pengadaan.index','pengadaan.create'])) active @endif ">
         <a href="#">
-          <i class="fa fa-cart-arrow-down"></i>
+          <i class="fa fa-flash"></i>
           <span>Pengadaan</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
@@ -101,6 +101,40 @@
           </li>
           <li @if(in_array($active, ['pengadaan.index'])) class="active" @endif>
             <a href="{{ route('pengadaan.index') }}">@if(in_array($active, ['pengadaan.index'])) <i class="fa fa-check-circle-o"></i> @else <i class="fa fa-circle-o"></i> @endif Data Pengadaan</a>
+          </li>
+        </ul>
+      </li>
+      <li class="treeview @if(in_array($active, ['penggilingan.index','penggilingan.create'])) active @endif ">
+        <a href="#">
+          <i class="fa fa-cart-arrow-down"></i>
+          <span>Penggilingan</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li @if(in_array($active, ['penggilingan.create'])) class="active" @endif>
+            <a href="{{ route('penggilingan.create') }}">@if(in_array($active, ['penggilingan.create'])) <i class="fa fa-check-circle-o"></i> @else <i class="fa fa-circle-o"></i> @endif Tambah Penggilingan</a>
+          </li>
+          <li @if(in_array($active, ['penggilingan.index'])) class="active" @endif>
+            <a href="{{ route('penggilingan.index') }}">@if(in_array($active, ['penggilingan.index'])) <i class="fa fa-check-circle-o"></i> @else <i class="fa fa-circle-o"></i> @endif Data Penggilingan</a>
+          </li>
+        </ul>
+      </li>
+      <li class="treeview @if(in_array($active, ['pemasaran.index','pemasaran.create'])) active @endif ">
+        <a href="#">
+          <i class="fa fa-rocket"></i>
+          <span>Pemasaran</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li @if(in_array($active, ['pemasaran.create'])) class="active" @endif>
+            <a href="{{ route('pemasaran.create') }}">@if(in_array($active, ['pemasaran.create'])) <i class="fa fa-check-circle-o"></i> @else <i class="fa fa-circle-o"></i> @endif Tambah Pemasaran</a>
+          </li>
+          <li @if(in_array($active, ['pemasaran.index'])) class="active" @endif>
+            <a href="{{ route('pemasaran.index') }}">@if(in_array($active, ['pemasaran.index'])) <i class="fa fa-check-circle-o"></i> @else <i class="fa fa-circle-o"></i> @endif Data Pemasaran</a>
           </li>
         </ul>
       </li>

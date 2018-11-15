@@ -19,7 +19,11 @@
 		@include('leftbar')
 
 		<div class="content-wrapper">
+			@if(!isset($custom_breadcrumb))
 			@include('page_header')
+			@else
+			@yield('breadcrumb')
+			@endif
 			<section class="content">
 				<div class="row">
 					@include('success_msg')

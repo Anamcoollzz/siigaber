@@ -6,6 +6,7 @@
         <th>Nama</th>
         <th>Lokasi</th>
         <th>Kapasitas</th>
+        <th>Stok Saat Ini</th>
         <th>Aksi</th>
     </tr>
 </thead>
@@ -15,6 +16,7 @@
         <th>Nama</th>
         <th>Lokasi</th>
         <th>Kapasitas</th>
+        <th>Stok Saat Ini</th>
         <th>Aksi</th>
     </tr>
 </tfoot>
@@ -25,6 +27,7 @@
         <td>{{ $d->nama }}</td>
         <td>{{ $d->lokasi }}</td>
         <td>{{ $d->kapasitas }}</td>
+        <td>{{ $d->isi }}</td>
         <td>
             @include('edit_button', ['link' => route('gudang.edit', [$d->id])])
             @include('delete_button', ['link' => route('gudang.destroy', [$d->id])])
