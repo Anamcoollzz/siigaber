@@ -20,7 +20,7 @@
 <table class="table">
 	<tbody>
 		<tr>
-			<td>Tanggal Dibuat</td>
+			<td>Waktu Dibuat</td>
 			<td>:</td>
 			<td>{{$d->created_at}}</td>
 		</tr>
@@ -45,24 +45,24 @@
 		<tr>
 			<td>Dari {{ $detail->gudang->nama }}</td>
 			<td>:</td>
-			<td>{{angka($detail->jumlah)}}</td>
+			<td>{{angka($detail->jumlah)}} kg</td>
 		</tr>
 		@endforeach
 		<tr>
 			<td>Total yang didistribusikan</td>
 			<td>:</td>
-			<td>{{angka($d->detail->sum(function($item){return $item->jumlah;}))}}</td>
+			<td>{{angka($d->detail->sum(function($item){return $item->jumlah;}))}} kg</td>
 		</tr>
 		<tr>
 			<td>Biaya</td>
 			<td>:</td>
-			<td>{{number_format($d->biaya, 0, ',', '.')}}</td>
+			<td>Rp. {{number_format($d->biaya, 0, ',', '.')}}</td>
 		</tr>
 		@if($d->status == 'Selesai')
 		<tr>
 			<td>Biaya Transportasi</td>
 			<td>:</td>
-			<td>{{number_format($d->biaya_transport, 0, ',', '.')}}</td>
+			<td>Rp. {{number_format($d->biaya_transport, 0, ',', '.')}}</td>
 		</tr>
 		@endif
 		<tr>
@@ -117,6 +117,46 @@
 <a href="#" onclick="verifikasi(event, '{{route('distribusi.verifikasi',[$d->id])}}')" class="btn btn-flat btn-warning">Verifikasi</a>
 @endif
 @endif
+
+
+@if($d->status == 'Dalam pengerjaan' && Auth::user()->role == 'Operator')
+<a data-toggle="modal" data-target="#modal-selesai-{{$d->id}}" class="btn bg-maroon btn-flat">Selesai</a>
+<form action="{{ route('distribusi.selesai',[$d->id]) }}" method="post" role="form" class="form-horizontal">
+	<div class="modal fade" id="modal-selesai-{{$d->id}}" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title">Selesai Distribusi</h4>
+				</div>
+				<div class="modal-body">
+					@csrf
+					@method('put')
+					<input type="hidden" name="id_penggilingan" value="{{$d->id}}">
+					<div class="row">
+						<div class="form-group {{$errors->has('biaya_transport' ? 'has-error' : '')}}">
+							<label for="biaya_transport" class="col-sm-4 control-label">Biaya Transportasi</label>
+							<div class="col-sm-6">
+								<input required="required" name="biaya_transport" value="{{old('biaya_transport')}}" type="number" class="form-control" id="biaya_transport" placeholder="Biaya Transportasi">
+								@if($errors->has('biaya_transport'))
+								<span class="help-block">{{$errors->first('biaya_transport')}}</span>
+								@endif
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default pull-left btn-flat" data-dismiss="modal">Tutup</button>
+					<button type="submit" class="btn btn-primary btn-flat">Selesai</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+@endif
+
 @endcomponent
 @endsection
 

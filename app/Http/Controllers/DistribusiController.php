@@ -236,7 +236,8 @@ class DistribusiController extends Controller
         $distribusi->update([
             'status'=>'Selesai',
             'biaya_transport'=>$r->biaya_transport,
+            'tanggal_selesai'=>date('Y-m-d'),
         ]);
-        return redirect(url()->previous().'?error_id='.$distribusi->id)->with('success_msg', 'Distribusi selesai :)');
+        return redirect()->back()->with('success_msg', 'Distribusi selesai :)');
     }
 }

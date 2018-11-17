@@ -17,6 +17,7 @@ Route::middleware('auth')->group(function(){
 	Route::put('/penggilingan/{penggilingan}/selesai','PenggilinganController@selesai')->name('penggilingan.selesai');
 	Route::resource('distribusi', 'DistribusiController');
 	Route::put('/distribusi/{distribusi}/verifikasi','DistribusiController@verifikasi')->name('distribusi.verifikasi');
+	Route::put('/distribusi/{distribusi}/selesai','DistribusiController@selesai')->name('distribusi.selesai');
 
 	Route::get('/keluar', 'HomeController@keluar');
 

@@ -16,6 +16,7 @@ class CreateDistribusi extends Migration
         Schema::create('distribusi', function (Blueprint $table) {
             $table->increments('id');
             $table->date('tanggal_mulai');
+            $table->date('tanggal_selesai');
             $table->double('biaya_transport')->default(0);
             $table->string('status', 50)->default('menunggu persetujuan');
             $table->integer('id_mitra_kerja')->unsigned()->nullable();

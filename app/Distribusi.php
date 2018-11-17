@@ -10,6 +10,7 @@ class Distribusi extends Model
 
 	protected $fillable = [
 		'tanggal_mulai',
+		'tanggal_selesai',
 		'biaya_transport',
 		'status',
 		'id_mitra_kerja',
