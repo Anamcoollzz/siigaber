@@ -6,7 +6,7 @@
         <th>Tanggal Dibuat</th>
         <th>Jenis Beras</th>
         <th>Tipe</th>
-        <th>Biaya Transport</th>
+        <th>Biaya</th>
         <th>Status</th>
         <th>Aksi</th>
     </tr>
@@ -17,7 +17,7 @@
         <th>Tanggal Dibuat</th>
         <th>Jenis Beras</th>
         <th>Tipe</th>
-        <th>Biaya Transport</th>
+        <th>Biaya</th>
         <th>Status</th>
         <th>Aksi</th>
     </tr>
@@ -29,7 +29,7 @@
         <td>{{ $d->created_at }}</td>
         <td>{{ $d->jenis->nama }}</td>
         <td>{{ $d->tipe }}</td>
-        <td align="right">{{ number_format($d->biaya_transport, 0, ',', '.') }}</td>
+        <td align="right">{{ number_format($d->biaya, 0, ',', '.') }}</td>
         <td>
             @if($d->status == 'Menunggu persetujuan')
             <span class="label bg-red">{{$d->status}}</span>
@@ -42,8 +42,10 @@
         <td>
             @include('detail_button', ['link' => route('distribusi.show', [$d->id])])
             @if($d->status == 'Menunggu persetujuan')
+            @if(Auth::user()->role == 'Operator')
             @include('edit_button', ['link' => route('distribusi.edit', [$d->id])])
             @include('delete_button', ['link' => route('distribusi.destroy', [$d->id])])
+            @endif
             @if(Auth::user()->role == 'Manajer')
             <a href="#" onclick="verifikasi(event, '{{route('distribusi.verifikasi',[$d->id])}}')" class="btn btn-flat btn-warning">Verifikasi</a>
             @endif

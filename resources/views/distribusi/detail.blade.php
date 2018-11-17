@@ -109,8 +109,10 @@
 	</tbody>
 </table>
 @if($d->status == 'Menunggu persetujuan')
+@if(Auth::user()->role == 'Operator')
 @include('edit_button', ['link' => route('distribusi.edit', [$d->id])])
 @include('delete_button', ['link' => route('distribusi.destroy', [$d->id])])
+@endif
 @if(Auth::user()->role == 'Manajer')
 <a href="#" onclick="verifikasi(event, '{{route('distribusi.verifikasi',[$d->id])}}')" class="btn btn-flat btn-warning">Verifikasi</a>
 @endif
