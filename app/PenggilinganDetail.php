@@ -9,6 +9,7 @@ class PenggilinganDetail extends Model
 	protected $table = 'detail_penggilingan';
 
 	protected $fillable = [
+		'id_penggilingan',
 		'id_gudang',
 		'jumlah',
 	];

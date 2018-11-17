@@ -7,15 +7,17 @@
 @include('select',['id'=>'jenis','label'=>'Jenis','selectData'=>[['text'=>'Beras','value'=>'Beras'],['text'=>'Gabah','value'=>'Gabah']]])
 @include('select',['id'=>'id_mitra_kerja','label'=>'Pilih Mitra Kerja','selectData'=>$listMitraKerja])
 @if(count($gudang) > 0)
-<div class="col-md-10 col-md-offset-1" style="margin-bottom: 20px;">
-	<h4>Pilih Gudang</h4>
-	@foreach ($gudang as $g)
-	<label>
-		<input @isset(old('id_gudang')[$g->id]) checked="checked" @endisset value="{{$g->id}}" id="id_gudang" data-id="{{'area_gudang'.$g->id}}" name="id_gudang[{{$g->id}}]" type="checkbox" class="minimal" >&nbsp;&nbsp;&nbsp;
-		{{$g->nama}}
-	</label>
-	&nbsp;&nbsp;&nbsp;
-	@endforeach
+<div class="form-group">
+	<label for="" class="col-md-2 control-label">Pilih Gudang</label>
+	<div class="col-md-10" style="margin-top: 4px;">
+		@foreach ($gudang as $g)
+		<label>
+			<input @isset(old('id_gudang')[$g->id]) checked="checked" @endisset value="{{$g->id}}" id="id_gudang" data-id="{{'area_gudang'.$g->id}}" name="id_gudang[{{$g->id}}]" type="checkbox" class="minimal" >&nbsp;&nbsp;&nbsp;
+			{{$g->nama}}
+		</label>
+		&nbsp;&nbsp;&nbsp;
+		@endforeach
+	</div>
 </div>
 @foreach ($gudang as $g)
 <div id="area_gudang{{$g->id}}" @isset(old('id_gudang')[$g->id]) @else style="display: none;" @endisset class="form-group {{ isset($errors) ? ($errors->has('isi_gudang_'.$g->id) ? 'has-error': '' ) : '' }}">

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Gudang;
+use App\JenisBeras;
+use App\GudangDetail;
 use DB;
 use Illuminate\Http\Request;
 
@@ -127,5 +129,26 @@ class GudangController extends Controller
     {
         $gudang->delete();
         return redirect()->back()->with('success_msg', 'Gudang berhasil dihapus');
+    }
+
+    public function stokBerasPerJenis(Request $request)
+    {
+        $request->validate([
+            'id_jenis_beras'=>'required',
+            'id_gudang'=>'required'
+        ]);
+        $gd = GudangDetail::firstOrCreate([
+            'id_jenis_beras'=>$request->id_jenis_beras,
+            'id_gudang'=>$request->id_gudang,
+        ]);
+        $gd = GudangDetail::where('id_jenis_beras', $request->id_jenis_beras)
+        ->where('id_gudang',$request->id_gudang)
+        ->first();
+        return [
+            'status'=>'ok',
+            'status_code'=>200,
+            'message'=>'Stok beras dengan jenis '.JenisBeras::find($request->id_jenis_beras)->nama,
+            'data'=>$gd
+        ];
     }
 }

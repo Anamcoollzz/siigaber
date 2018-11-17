@@ -121,20 +121,20 @@
           </li>
         </ul>
       </li>
-      <li class="treeview @if(in_array($active, ['pemasaran.index','pemasaran.create'])) active @endif ">
+      <li class="treeview @if(in_array($active, ['distribusi.index','distribusi.create'])) active @endif ">
         <a href="#">
           <i class="fa fa-rocket"></i>
-          <span>Pemasaran</span>
+          <span>Distribusi</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
           </span>
         </a>
         <ul class="treeview-menu">
-          <li @if(in_array($active, ['pemasaran.create'])) class="active" @endif>
-            <a href="{{ route('pemasaran.create') }}">@if(in_array($active, ['pemasaran.create'])) <i class="fa fa-check-circle-o"></i> @else <i class="fa fa-circle-o"></i> @endif Tambah Pemasaran</a>
+          <li @if(in_array($active, ['distribusi.create'])) class="active" @endif>
+            <a href="{{ route('distribusi.create') }}">@if(in_array($active, ['distribusi.create'])) <i class="fa fa-check-circle-o"></i> @else <i class="fa fa-circle-o"></i> @endif Tambah Distribusi</a>
           </li>
-          <li @if(in_array($active, ['pemasaran.index'])) class="active" @endif>
-            <a href="{{ route('pemasaran.index') }}">@if(in_array($active, ['pemasaran.index'])) <i class="fa fa-check-circle-o"></i> @else <i class="fa fa-circle-o"></i> @endif Data Pemasaran</a>
+          <li @if(in_array($active, ['distribusi.index'])) class="active" @endif>
+            <a href="{{ route('distribusi.index') }}">@if(in_array($active, ['distribusi.index'])) <i class="fa fa-check-circle-o"></i> @else <i class="fa fa-circle-o"></i> @endif Data Distribusi</a>
           </li>
         </ul>
       </li>
