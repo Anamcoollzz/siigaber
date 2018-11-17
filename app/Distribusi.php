@@ -27,7 +27,7 @@ class Distribusi extends Model
 
 	public function detail()
 	{
-		return $this->hasMany('App\PenggilinganDetail','id_penggilingan');
+		return $this->hasMany('App\DistribusiDetail','id_distribusi');
 	}
 
 	public function jenis()

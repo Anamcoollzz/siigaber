@@ -8,7 +8,7 @@
 	</h1>
 	<ol class="breadcrumb">
 		<li><a href="<?=url('')?>"><i class="fa fa-dashboard"></i> Dasbor</a></li>
-		<li><a href="{{route('penggilingan.index')}}"> Penggilingan</a></li>
+		<li><a href="{{route('distribusi.index')}}"> Distribusi</a></li>
 		<li class="active"><?=$title?></li>
 	</ol>
 </section>
@@ -49,7 +49,7 @@
 		</tr>
 		@endforeach
 		<tr>
-			<td>Total yang digiling</td>
+			<td>Total yang didistribusikan</td>
 			<td>:</td>
 			<td>{{angka($d->detail->sum(function($item){return $item->jumlah;}))}}</td>
 		</tr>
@@ -64,10 +64,33 @@
 			<td>{{number_format($d->biaya_transport, 0, ',', '.')}}</td>
 		</tr>
 		<tr>
+			<td>Tipe</td>
+			<td>:</td>
+			<td>{{$d->tipe}}</td>
+		</tr>
+		@if($d->tipe == 'Umum')
+		<tr>
 			<td>Mitra Kerja</td>
 			<td>:</td>
 			<td>{{$d->mitrakerja->nama}}</td>
 		</tr>
+		@else
+		<tr>
+			<td>Nama Desa</td>
+			<td>:</td>
+			<td>{{$d->nama_desa}}</td>
+		</tr>
+		<tr>
+			<td>Nama Kecamatan</td>
+			<td>:</td>
+			<td>{{$d->nama_kecamatan}}</td>
+		</tr>
+		<tr>
+			<td>Nama Kepala Desa</td>
+			<td>:</td>
+			<td>{{$d->nama_kepala_desa}}</td>
+		</tr>
+		@endif
 		<tr>
 			<td>Status</td>
 			<td>:</td>
@@ -84,9 +107,11 @@
 	</tbody>
 </table>
 @if($d->status == 'Menunggu persetujuan')
-@include('edit_button', ['link' => route('penggilingan.edit', [$d->id])])
-@include('delete_button', ['link' => route('penggilingan.destroy', [$d->id])])
-<a href="#" onclick="verifikasi(event, '{{route('penggilingan.verifikasi',[$d->id])}}')" class="btn btn-flat btn-warning">Verifikasi</a>
+@include('edit_button', ['link' => route('distribusi.edit', [$d->id])])
+@include('delete_button', ['link' => route('distribusi.destroy', [$d->id])])
+@if(Auth::user()->role == 'Manajer')
+<a href="#" onclick="verifikasi(event, '{{route('distribusi.verifikasi',[$d->id])}}')" class="btn btn-flat btn-warning">Verifikasi</a>
+@endif
 @endif
 @endcomponent
 @endsection

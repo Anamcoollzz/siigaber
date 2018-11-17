@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class GudangDetail extends Model
+class DistribusiDetail extends Model
 {
 	protected $table = 'detail_distribusi';
 
@@ -15,4 +15,9 @@ class GudangDetail extends Model
 		'id_gudang',
 		'jumlah',
 	];
+
+	public function gudang()
+	{
+		return $this->belongsTo('App\Gudang', 'id_gudang');
+	}
 }
