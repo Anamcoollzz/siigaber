@@ -45,8 +45,8 @@
             @include('edit_button', ['link' => route('distribusi.edit', [$d->id])])
             @include('delete_button', ['link' => route('distribusi.destroy', [$d->id])])
             @if(Auth::user()->role == 'Manajer')
-<a href="#" onclick="verifikasi(event, '{{route('distribusi.verifikasi',[$d->id])}}')" class="btn btn-flat btn-warning">Verifikasi</a>
-@endif
+            <a href="#" onclick="verifikasi(event, '{{route('distribusi.verifikasi',[$d->id])}}')" class="btn btn-flat btn-warning">Verifikasi</a>
+            @endif
             @endif
             @if($d->status == 'Dalam pengerjaan')
             <a data-toggle="modal" data-target="#modal-selesai-{{$d->id}}" class="btn bg-maroon btn-flat">Selesai</a>

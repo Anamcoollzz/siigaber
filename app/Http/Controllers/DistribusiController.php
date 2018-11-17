@@ -20,7 +20,7 @@ class DistribusiController extends Controller
      */
     public function index(Request $r)
     {
-        $data = Distribusi::with('jenis')->get();
+        $data = Distribusi::with('jenis')->orderBy('id','desc')->get();
         return view('distribusi.index', [
             'data'      => $data,
             'title'     => 'Distribusi',
@@ -56,7 +56,6 @@ class DistribusiController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request->all();
         $rules = [];
         $validator = Validator::make($request->all(), [
             'tanggal_mulai'=>'required|date_format:Y-m-d', 
@@ -130,7 +129,7 @@ class DistribusiController extends Controller
      */
     public function edit(Distribusi $distribusi)
     {
-        $distribusi->load('kegudang.gudang');
+        $distribusi->load('detail.gudang');
         return view('distribusi.ubah', [
             'd'             => $distribusi,
             'title'         => 'Ubah Distribusi',
@@ -139,6 +138,7 @@ class DistribusiController extends Controller
             'action'        => route('distribusi.update', $distribusi->id),
             'active'        => 'distribusi.index',
             'listMitraKerja'=>MitraKerja::listMode(),
+            'listJenisBeras'=>JenisBeras::listMode(),
             'gudang'=>Gudang::all(),
         ]);
     }
@@ -154,10 +154,8 @@ class DistribusiController extends Controller
     {
         $rules = [];
         $validator = Validator::make($request->all(), [
-            'tanggal'=>'required|date_format:Y-m-d', 
-            'jumlah'=>'required|numeric', 
-            'biaya'=>'required|numeric', 
-            'biaya_transport'=>'required|numeric',
+            'tanggal_mulai'=>'required|date_format:Y-m-d', 
+            'tipe'=>'required', 
         ]);
         if(!isset($request->id_gudang)){
             return redirect()->back()->withErrors($validator)->withInput()->with('error_msg', 'Setidaknya pilih salah satu gudang');
@@ -166,23 +164,48 @@ class DistribusiController extends Controller
             $rules['isi_gudang_'.$id_gudang] = 'required|numeric';
         }
         $request->validate($rules);
-        $data = [
-            'jumlah'=>$request->jumlah,
+        if(Distribusi::count() == 0){
+            DB::statement('set foreign_key_checks=0;');
+            Distribusi::truncate();
+        }
+        $distribusi->load('detail');
+        foreach ($distribusi->detail as $detail) {
+            $gd = GudangDetail::where('id_gudang',$detail->id_gudang)
+            ->where('id_jenis_beras',$distribusi->id_jenis_beras)
+            ->first();
+            $gd->jml_beras += $detail->jumlah;
+            $gd->save();
+        }
+        $distribusi->update([
+            'tanggal_mulai'=>$request->tanggal_mulai,
             'biaya'=>$request->biaya,
-            'biaya_transport'=>$request->biaya_transport,
-            'id_mitra_kerja'=>$request->id_mitra_kerja,
+            'id_mitra_kerja'=>$request->tipe == 'Umum' ? $request->id_mitra_kerja : null,
+            'id_jenis_beras'=>$request->id_jenis_beras,
+            'nama_desa'=>$request->tipe == 'Raskin' ? $request->nama_desa : null,
+            'nama_kecamatan'=>$request->tipe == 'Raskin' ? $request->nama_kecamatan : null,
+            'nama_kepala_desa'=>$request->tipe == 'Raskin' ? $request->nama_kepala_desa : null,
             'status'=>'Menunggu persetujuan',
-            'tanggal'=>$request->tanggal,
-        ];
-        $distribusi->update($data);
-        $distribusi->kegudang()->delete();
+            'tipe'=>$request->tipe,
+        ]);
+        $distribusi->detail()->delete();
         foreach ($request->id_gudang as $id_gudang) {
-            $distribusi->kegudang()->create([
+            $distribusi->detail()->create([
                 'jumlah'=>$request['isi_gudang_'.$id_gudang],
                 'id_gudang'=>$id_gudang,
             ]);
+            $gd = GudangDetail::where('id_gudang',$id_gudang)
+            ->where('id_jenis_beras',$request->id_jenis_beras)
+            ->first();
+            if(is_null($gd)){
+                $gd = GudangDetail::create([
+                    'id_gudang'=>$id_gudang,
+                    'id_jenis_beras'=>$request->id_jenis_beras,
+                ]);
+            }
+            $gd->jml_beras -= $request['isi_gudang_'.$id_gudang];
+            $gd->save();
         }
-        return redirect()->route('distribusi.index')->with('success_msg', 'Distribusi berhasil diperbarui');
+        return redirect()->route('distribusi.show',[$distribusi->id])->with('success_msg', 'Distribusi berhasil diperbarui');
     }
 
     /**
