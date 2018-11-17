@@ -15,7 +15,11 @@ class Gudang extends Model
 		'nama',
 		'lokasi',
 		'kapasitas',
-		'isi',
 	];
+
+	public function detail()
+	{
+		return $this->hasMany('App\GudangDetail', 'id_gudang');
+	}
 
 }

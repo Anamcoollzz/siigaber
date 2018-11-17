@@ -18,7 +18,6 @@ class CreateGudang extends Migration
             $table->string('nama',50);
             $table->string('lokasi',100);
             $table->integer('kapasitas');
-            $table->integer('isi')->default(0);
         });
     }
 

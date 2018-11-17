@@ -16,4 +16,9 @@ class GudangDetail extends Model
 		'jml_gabah',
 		'jml_beras',
 	];
+
+	public function jenis()
+	{
+		return $this->belongsTo('App\JenisBeras', 'id_jenis_beras');
+	}
 }

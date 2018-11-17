@@ -17,7 +17,7 @@ class GudangController extends Controller
      */
     public function index(Request $r)
     {
-        $data = Gudang::all();
+        $data = Gudang::with('detail')->get();
         return view('gudang.index', [
             'data'      => $data,
             'title'     => 'Gudang',
@@ -59,7 +59,7 @@ class GudangController extends Controller
             DB::statement('set foreign_key_checks=0;');
             Gudang::truncate();
         }
-        $gudangs = Gudang::create([
+        $gudang = Gudang::create([
             'nama'=>$request->nama,
             'lokasi'=>$request->lokasi,
             'kapasitas'=>$request->kapasitas,
@@ -70,18 +70,26 @@ class GudangController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Gudang  $gudangs
+     * @param  \App\Gudang  $gudang
      * @return \Illuminate\Http\Response
      */
-    public function show(Gudang $gudangs)
+    public function show(Gudang $gudang)
     {
-        //
+        $gudang->load('detail.jenis');
+        return view('gudang.detail', [
+            'title'         => 'Detail Gudang',
+            'modul_link'    => route('gudang.index'),
+            'modul'         => 'Gudang',
+            'active'        => 'gudang.index',
+            'd'=>$gudang, 
+            'custom_breadcrumb'=>true,
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Gudang  $gudangs
+     * @param  \App\Gudang  $gudang
      * @return \Illuminate\Http\Response
      */
     public function edit(Gudang $gudang)
@@ -100,7 +108,7 @@ class GudangController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Gudang  $gudangs
+     * @param  \App\Gudang  $gudang
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Gudang $gudang)
@@ -122,7 +130,7 @@ class GudangController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Gudang  $gudangs
+     * @param  \App\Gudang  $gudang
      * @return \Illuminate\Http\Response
      */
     public function destroy(Gudang $gudang)
