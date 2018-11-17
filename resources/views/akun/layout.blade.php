@@ -9,7 +9,9 @@
         <th>Nama</th>
         <th>Username</th>
         <th>Role</th>
+        @if(Auth::user()->role == 'Operator')
         <th>Aksi</th>
+        @endif
     </tr>
 </thead>
 <tfoot>
@@ -18,7 +20,9 @@
         <th>Nama</th>
         <th>Username</th>
         <th>Role</th>
+        @if(Auth::user()->role == 'Operator')
         <th>Aksi</th>
+        @endif
     </tr>
 </tfoot>
 <tbody>
@@ -28,10 +32,12 @@
         <td>{{ $d->nama }}</td>
         <td>{{ $d->username }}</td>
         <td>{{ $d->role }}</td>
+        @if(Auth::user()->role == 'Operator')
         <td>
             @include('edit_button', ['link' => route('akun.edit', [$d->id])])
             @include('delete_button', ['link' => route('akun.destroy', [$d->id])])
         </td>
+        @endif
     </tr>
     @endforeach
 </tbody>

@@ -30,7 +30,7 @@ class AkunController extends Controller
             'data'      => $data,
             'title'     => 'Akun',
             'active'    => 'akun.index',
-            'createLink'=>route('akun.create'),
+            'createLink'=>$r->user()->role == 'Operator' ? route('akun.create') : false,
         ]);
     }
 

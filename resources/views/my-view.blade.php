@@ -16,7 +16,10 @@
             @include('tambah_button', ['link'  => $createLink])
             @endif
             @else
+            @if($createLink)
             @include('tambah_button', ['link'  => $createLink])
+            @else
+            @endif
             @endisset
           </div>
           <div class="box-body">

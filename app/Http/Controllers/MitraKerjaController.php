@@ -20,7 +20,7 @@ class MitraKerjaController extends Controller
             'data'      => $data,
             'title'     => 'Mitra Kerja',
             'active'    => 'mitra-kerja.index',
-            'createLink'=>route('mitra-kerja.create'),
+            'createLink'=>$r->user()->role == 'Operator' ? route('mitra-kerja.create') : false,
         ]);
     }
 

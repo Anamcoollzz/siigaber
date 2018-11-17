@@ -29,7 +29,7 @@ class PengadaanController extends Controller
             'data'      => $data,
             'title'     => 'Pengadaan',
             'active'    => 'pengadaan.index',
-            'createLink'=>route('pengadaan.create'),
+            'createLink'=>$r->user()->role == 'Operator' ? route('pengadaan.create') : false,
         ]);
     }
 

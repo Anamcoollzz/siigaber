@@ -1,3 +1,17 @@
+@php
+$a1 = \App\Pengadaan::where('status', 'Menunggu persetujuan')->count();
+$a2 = \App\Pengadaan::where('status', 'Dalam pengerjaan')->count();
+// $a3 = \App\Pengadaan::where('status', 'Selesai')->count();
+
+$b1 = \App\Penggilingan::where('status', 'Menunggu persetujuan')->count();
+$b2 = \App\Penggilingan::where('status', 'Dalam pengerjaan')->count();
+// $b3 = \App\Penggilingan::where('status', 'Selesai')->count();
+
+$c1 = \App\Distribusi::where('status', 'Menunggu persetujuan')->count();
+$c2 = \App\Distribusi::where('status', 'Dalam pengerjaan')->count();
+// $c3 = \App\Distribusi::where('status', 'Selesai')->count();
+@endphp
+
 <aside class="main-sidebar">
   <section class="sidebar">
     <div class="user-panel">
@@ -14,6 +28,7 @@
     </div>
     <ul class="sidebar-menu">
       <li class="header">MAIN NAVIGATION</li>
+      @if(Auth::user()->role == 'Operator')
       {{-- <li @if($active == 'dasbor') class="active" @endif>
         <a href="{{ route('dasbor') }}">
           <i class="fa fa-dashboard"></i> <span>Dasbor</span>
@@ -138,6 +153,9 @@
           </li>
         </ul>
       </li>
+      @else
+      @include('layouts.menu-lain')
+      @endif
     </ul>
   </section>
 </aside>

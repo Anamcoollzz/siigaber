@@ -20,7 +20,7 @@ class JenisBerasController extends Controller
             'data'      => $data,
             'title'     => 'Jenis Beras',
             'active'    => 'jenis-beras.index',
-            'createLink'=>route('jenis-beras.create'),
+            'createLink'=>$r->user()->role == 'Operator' ? route('jenis-beras.create') : false,
         ]);
     }
 

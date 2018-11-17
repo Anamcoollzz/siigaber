@@ -22,7 +22,7 @@ class GudangController extends Controller
             'data'      => $data,
             'title'     => 'Gudang',
             'active'    => 'gudang.index',
-            'createLink'=>route('gudang.create'),
+            'createLink'=>$r->user()->role == 'Operator' ? route('gudang.create') : false,
         ]);
     }
 
