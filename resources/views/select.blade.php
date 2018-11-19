@@ -1,6 +1,18 @@
-<div class="form-group">
-  <label for="{{ $id }}" class="col-lg-{{ isset($size) ? (is_array($size) ? $size[0] : 2) : 2 }} control-label">{{ $label }}</label>
-  <div class="col-sm-{{ isset($size) ? (is_array($size) ? $size[1] : 6) : 6 }}">
+<div class="form-group {{ isset($errors) ? ($errors->has($id) ? 'has-error': '' ) : '' }}">
+    <label for="{{ $id }}" 
+    @isset($custom)
+    class="col-lg-{{$custom[0]}} control-label"
+    @else
+    class="col-lg-2 control-label" 
+    @endisset>{{ $label }}</label>
+    <div 
+    @if(isset($size))
+    class="col-sm-{{$size}}"
+    @elseif(isset($custom))
+    class="col-sm-{{$custom[1]}}"
+    @else
+    class="col-sm-6"
+    @endif>
     <select name="{{ isset($name) ? $name : $id }}" type="text" class="form-control" id="{{ $id }}">
     	@foreach($selectData as $s)
     	<option  

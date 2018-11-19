@@ -13,6 +13,12 @@ use Illuminate\Http\Request;
 
 class PenggilinganController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware(\App\Http\Middleware\HanyaOperator::class)->except('index','show','verifikasi','selesai');
+    }
+
     /**
      * Display a listing of the resource.
      *

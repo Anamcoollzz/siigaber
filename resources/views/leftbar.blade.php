@@ -28,6 +28,12 @@ $c2 = \App\Distribusi::where('status', 'Dalam pengerjaan')->count();
     </div>
     <ul class="sidebar-menu">
       <li class="header">MAIN NAVIGATION</li>
+      <li @if(in_array($active, ['dasbor'])) class="active" @endif>
+        <a href="{{ url('') }}">
+          <i class="fa fa-dashboard"></i> 
+          Dasbor
+        </a>
+      </li>
       @if(Auth::user()->role == 'Operator')
       {{-- <li @if($active == 'dasbor') class="active" @endif>
         <a href="{{ route('dasbor') }}">

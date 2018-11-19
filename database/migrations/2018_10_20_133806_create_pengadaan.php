@@ -16,9 +16,9 @@ class CreatePengadaan extends Migration
         Schema::create('pengadaan', function (Blueprint $table) {
             $table->increments('id');
             $table->date('tanggal');
-            $table->double('jumlah');
+            $table->date('tanggal_selesai')->nullable();
             $table->double('biaya');
-            $table->double('biaya_transport');
+            $table->double('biaya_transport')->default(0);
             $table->enum('jenis_pengadaan',['Beras','Gabah']);
             $table->integer('id_mitra_kerja')->unsigned();
             $table->foreign('id_mitra_kerja')->on('mitra_kerja')->references('id')->onUpdate('cascade')->onDelete('cascade');

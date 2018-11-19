@@ -34,6 +34,7 @@
     </div>
   </section>
 </div>
+@yield('modal')
 <form action="" id="form-hapus" method="post">
   @method('delete')
   @csrf

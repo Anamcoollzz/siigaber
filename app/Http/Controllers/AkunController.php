@@ -9,6 +9,11 @@ use DB;
 class AkunController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware(\App\Http\Middleware\HanyaOperator::class)->except('index');
+    }
+
     private function listRole()
     {
         return [

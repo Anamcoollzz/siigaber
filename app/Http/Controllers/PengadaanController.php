@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Pengadaan;
+use App\JenisBeras;
 use App\MitraKerja;
 use Illuminate\Http\Request;
 use App\Gudang;
@@ -12,10 +13,10 @@ use DB;
 class PengadaanController extends Controller
 {
 
-    // public function __construct()
-    // {
-    //     DB::enableQueryLog();
-    // }
+    public function __construct()
+    {
+        $this->middleware(\App\Http\Middleware\HanyaOperator::class)->except('index','verifikasi','show','selesai');
+    }
 
     /**
      * Display a listing of the resource.
@@ -24,7 +25,7 @@ class PengadaanController extends Controller
      */
     public function index(Request $r)
     {
-        $data = Pengadaan::all();
+        $data = Pengadaan::latest()->get();
         return view('pengadaan.index', [
             'data'      => $data,
             'title'     => 'Pengadaan',
@@ -48,6 +49,7 @@ class PengadaanController extends Controller
             'active'        => 'pengadaan.create',
             'listMitraKerja'=>MitraKerja::listMode(),
             'gudang'=>Gudang::all(),
+            'listJenisBeras'=>JenisBeras::listMode(),
         ]);
     }
 
@@ -60,11 +62,14 @@ class PengadaanController extends Controller
     public function store(Request $request)
     {
         $rules = [];
+        $request->validate([
+            'tanggal'=>'required|date_format:Y-m-d',  
+            'biaya'=>'required|numeric', 
+        ]);
         $validator = Validator::make($request->all(), [
             'tanggal'=>'required|date_format:Y-m-d', 
-            'jumlah'=>'required|numeric', 
             'biaya'=>'required|numeric', 
-            'biaya_transport'=>'required|numeric',
+            // 'biaya_transport'=>'required|numeric',
         ]);
         if(!isset($request->id_gudang)){
             return redirect()->back()->withErrors($validator)->withInput()->with('error_msg', 'Setidaknya pilih salah satu gudang');
@@ -80,10 +85,11 @@ class PengadaanController extends Controller
         $pengadaan = Pengadaan::create([
             'jumlah'=>$request->jumlah,
             'biaya'=>$request->biaya,
-            'biaya_transport'=>$request->biaya_transport,
+            // 'biaya_transport'=>$request->biaya_transport,
             'id_mitra_kerja'=>$request->id_mitra_kerja,
             'status'=>'Menunggu persetujuan',
             'tanggal'=>$request->tanggal,
+            'id_jenis_beras'=>$request->id_jenis_beras,
         ]);
         foreach ($request->id_gudang as $id_gudang) {
             $pengadaan->kegudang()->create([
@@ -112,6 +118,7 @@ class PengadaanController extends Controller
             'modul'         => 'Pengadaan',
             'active'        => 'pengadaan.index',
             'd'=>$pengadaan, 
+            'custom_breadcrumb'=>true,
         ]);
     }
 
@@ -194,6 +201,16 @@ class PengadaanController extends Controller
     {
         $pengadaan->update([
             'status'=>'Dalam pengerjaan',
+        ]);
+        return redirect()->back()->with('success_msg', 'Pengadaan berhasil diverifikasi');
+    }
+
+    public function selesai(Pengadaan $pengadaan, Request $request)
+    {
+        $pengadaan->update([
+            'status'=>'Selesai',
+            'biaya_transport'=>$request->biaya_transport,
+            'tanggal_selesai'=>date('Y-m-d'),
         ]);
         return redirect()->back()->with('success_msg', 'Pengadaan berhasil diverifikasi');
     }

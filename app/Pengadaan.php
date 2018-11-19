@@ -11,13 +11,14 @@ class Pengadaan extends Model
 	// public $timestamps = false;
 
 	protected $fillable = [
+		'tanggal_selesai',
 		'tanggal',
-		'jumlah',
 		'biaya',
 		'biaya_transport',
 		'jenis_pengadaan',
 		'id_mitra_kerja',
 		'status',
+		'id_jenis_beras',
 	];
 
 	public function masukgudang()
@@ -33,5 +34,10 @@ class Pengadaan extends Model
 	public function kegudang()
 	{
 		return $this->hasMany('App\PengadaanKeGudang', 'id_pengadaan');
+	}
+
+	public function jenis()
+	{
+		return $this->belongsTo('App\JenisBeras', 'id_jenis_beras');
 	}
 }

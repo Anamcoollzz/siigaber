@@ -8,6 +8,12 @@ use DB;
 
 class JenisBerasController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware(\App\Http\Middleware\HanyaOperator::class)->except('index');
+    }
+    
     /**
      * Display a listing of the resource.
      *
