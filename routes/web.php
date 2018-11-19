@@ -1,7 +1,7 @@
 <?php
 
 
-Route::middleware('auth')->group(function(){
+Route::middleware(\App\Http\Middleware\WajibMasuk::class)->group(function(){
 	
 	Route::get('/','DasborController@index');
 

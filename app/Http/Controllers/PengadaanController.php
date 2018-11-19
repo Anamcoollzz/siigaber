@@ -87,6 +87,7 @@ class PengadaanController extends Controller
             'biaya'=>$request->biaya,
             // 'biaya_transport'=>$request->biaya_transport,
             'id_mitra_kerja'=>$request->id_mitra_kerja,
+            'jenis_pengadaan'=>$request->jenis,
             'status'=>'Menunggu persetujuan',
             'tanggal'=>$request->tanggal,
             'id_jenis_beras'=>$request->id_jenis_beras,

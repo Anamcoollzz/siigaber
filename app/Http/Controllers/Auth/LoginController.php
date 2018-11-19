@@ -25,7 +25,12 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected function redirectTo()
+    {
+        if(request()->query('goto'))
+            return request()->query('goto');
+        return '/';
+    }
 
     /**
      * Create a new controller instance.

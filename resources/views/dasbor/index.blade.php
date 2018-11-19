@@ -61,7 +61,7 @@ $totalDistribusi = \App\DistribusiDetail::sum('jumlah');
           <small>Panel Kontrol</small>
         </h1>
         <ol class="breadcrumb">
-          <li class="active">Dashboard</li>
+          <li class="active">Dasbor</li>
         </ol>
       </section>
 

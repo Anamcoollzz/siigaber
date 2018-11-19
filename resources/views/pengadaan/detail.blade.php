@@ -56,11 +56,13 @@
 			<td>:</td>
 			<td>{{number_format($d->biaya, 0, ',', '.')}}</td>
 		</tr>
+		@if($d->status == 'Selesai')
 		<tr>
-			<td><strong>Biaya Transport</strong></td>
+			<td><strong>Biaya Transportasi</strong></td>
 			<td>:</td>
 			<td>{{number_format($d->biaya_transport, 0, ',', '.')}}</td>
 		</tr>
+		@endif
 		<tr>
 			<td><strong>Mitra Kerja</strong></td>
 			<td>:</td>
@@ -81,11 +83,16 @@
 		</tr>
 		@foreach ($d->kegudang as $g)
 		<tr>
-			<td><strong>{{$g->gudang->nama}}</strong></td>
+			<td><strong>Masuk ke {{$g->gudang->nama}}</strong></td>
 			<td>:</td>
 			<td>{{angka($g->jumlah)}}</td>
 		</tr>
 		@endforeach
+		<tr>
+			<td><strong>Total</strong></td>
+			<td>:</td>
+			<td>{{angka($d->kegudang->sum('jumlah'))}}</td>
+		</tr>
 	</tbody>
 </table>
 @if($d->status == 'Menunggu persetujuan')
