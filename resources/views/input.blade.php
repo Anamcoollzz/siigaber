@@ -1,9 +1,9 @@
 <div class="form-group {{ isset($errors) ? ($errors->has($id) ? 'has-error': '' ) : '' }}">
 	<label for="{{ $id }}" 
 	@isset($custom)
-	class="col-lg-{{$custom[0]}} control-label"
+	class="col-sm-{{$custom[0]}} control-label"
 	@else
-	class="col-lg-2 control-label" 
+	class="col-sm-2 control-label" 
 	@endisset>{{ $label }}</label>
 	<div 
 	@if(isset($size))

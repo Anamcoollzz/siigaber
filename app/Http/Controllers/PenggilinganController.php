@@ -10,6 +10,7 @@ use App\JenisBeras;
 use App\Gudang;
 use App\GudangDetail;
 use Illuminate\Http\Request;
+use Auth;
 
 class PenggilinganController extends Controller
 {
@@ -26,12 +27,12 @@ class PenggilinganController extends Controller
      */
     public function index(Request $r)
     {
-        $data = Penggilingan::with('jenis')->get();
+        $data = Penggilingan::with('jenis','mitrakerja','detail.gudang')->get();
         return view('penggilingan.index', [
             'data'      => $data,
             'title'     => 'Penggilingan',
             'active'    => 'penggilingan.index',
-            'createLink'=>route('penggilingan.create'),
+            'createLink'=> Auth::user()->role == 'Operator' ? route('penggilingan.create') : false,
         ]);
     }
 
@@ -91,16 +92,6 @@ class PenggilinganController extends Controller
                 'jumlah'=>$request['isi_gudang_'.$id_gudang],
                 'id_gudang'=>$id_gudang,
             ]);
-            $gd = GudangDetail::where('id_gudang',$id_gudang)->where('id_jenis_beras',$request->id_jenis_beras)
-            ->first();
-            if(is_null($gd)){
-                $gd = GudangDetail::create([
-                    'id_gudang'=>$id_gudang,
-                    'id_jenis_beras'=>$request->id_jenis_beras,
-                ]);
-            }
-            $gd->jml_gabah -= $request['isi_gudang_'.$id_gudang];
-            $gd->save();
         }
         return redirect()->route('penggilingan.index')->with('success_msg', 'Penggilingan berhasil dibuat');
     }
@@ -204,6 +195,19 @@ class PenggilinganController extends Controller
         $penggilingan->update([
             'status'=>'Dalam pengerjaan',
         ]);
+        $penggilingan->load('detail');
+        foreach ($penggilingan->detail as $detail) {
+            $gd = GudangDetail::where('id_gudang',$detail->id_gudang)->where('id_jenis_beras',$penggilingan->id_jenis_beras)
+            ->first();
+            if(is_null($gd)){
+                $gd = GudangDetail::create([
+                    'id_gudang'=>$detail->id_gudang,
+                    'id_jenis_beras'=>$penggilingan->id_jenis_beras,
+                ]);
+            }
+            $gd->jml_gabah -= $detail->jumlah;
+            $gd->save();
+        }
         return redirect()->back()->with('success_msg', 'Penggilingan berhasil diverifikasi');
     }
 
@@ -216,6 +220,17 @@ class PenggilinganController extends Controller
             'status'=>'Selesai',
             'biaya_transport'=>$r->biaya_transport,
         ]);
+        foreach ($r->gudang as $key => $g) {
+            $gd = GudangDetail::where('id_gudang', $key)->where('id_jenis_beras', $penggilingan->id_jenis_beras)->first();
+            if(is_null($gd)){
+                $gd = GudangDetail::create([
+                    'id_gudang'=>$key,
+                    'id_jenis_beras'=>$penggilingan->id_jenis_beras,
+                ]);
+            }
+            $gd->jml_beras += $g;
+            $gd->save();
+        }
         return redirect(url()->previous().'?error_id='.$penggilingan->id)->with('success_msg', 'Penggilingan selesai :)');
     }
 }

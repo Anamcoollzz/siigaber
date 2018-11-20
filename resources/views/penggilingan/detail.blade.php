@@ -58,11 +58,13 @@
 			<td>:</td>
 			<td>{{number_format($d->biaya, 0, ',', '.')}}</td>
 		</tr>
+		@if($d->status == 'Selesai')
 		<tr>
 			<td>Biaya Transport</td>
 			<td>:</td>
 			<td>{{number_format($d->biaya_transport, 0, ',', '.')}}</td>
 		</tr>
+		@endif
 		<tr>
 			<td>Mitra Kerja</td>
 			<td>:</td>
