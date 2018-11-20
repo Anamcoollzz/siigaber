@@ -20,6 +20,10 @@ Route::middleware(\App\Http\Middleware\WajibMasuk::class)->group(function(){
 	Route::put('/distribusi/{distribusi}/selesai','DistribusiController@selesai')->name('distribusi.selesai');
 
 	Route::get('/keluar', 'HomeController@keluar');
+	Route::resource('sppk', 'SppkController');
+	Route::get('/sppk/{sppk}/prioritas', 'SppkController@prioritas')->name('sppk.prioritas');
+	Route::post('/sppk/{sppk}/prioritas', 'SppkController@prioritasStore')->name('sppk.prioritas-store');
+	Route::get('/sppk/{sppk}/prioritas-sub', 'SppkController@prioritasSub')->name('sppk.prioritas-sub');
 
 });
 

@@ -123,7 +123,7 @@ class PenggilinganController extends Controller
      */
     public function edit(Penggilingan $penggilingan)
     {
-        $penggilingan->load('kegudang.gudang');
+        $penggilingan->load('detail.gudang');
         return view('penggilingan.ubah', [
             'd'             => $penggilingan,
             'title'         => 'Ubah Penggilingan',

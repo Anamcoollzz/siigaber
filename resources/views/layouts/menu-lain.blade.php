@@ -50,3 +50,12 @@
 		@include('layouts.label',['label'=>[$c1,$c2]])
 	</a>
 </li>
+
+@if(Auth::user()->role == 'Manajer')
+<li @if(in_array($active, ['sppk.index'])) class="active" @endif>
+	<a href="{{ route('sppk.index') }}">
+		<i class="fa fa-chrome"></i>
+		SPPK
+	</a>
+</li>
+@endif
