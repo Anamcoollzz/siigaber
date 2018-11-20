@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Pengadaan;
+use App\GudangDetail;
 use App\JenisBeras;
 use App\MitraKerja;
 use Illuminate\Http\Request;
@@ -69,7 +70,6 @@ class PengadaanController extends Controller
         $validator = Validator::make($request->all(), [
             'tanggal'=>'required|date_format:Y-m-d', 
             'biaya'=>'required|numeric', 
-            // 'biaya_transport'=>'required|numeric',
         ]);
         if(!isset($request->id_gudang)){
             return redirect()->back()->withErrors($validator)->withInput()->with('error_msg', 'Setidaknya pilih salah satu gudang');
@@ -208,11 +208,33 @@ class PengadaanController extends Controller
 
     public function selesai(Pengadaan $pengadaan, Request $request)
     {
+        $request->validate([
+            'biaya_transport'=>'required|numeric|min:1000',
+        ]);
         $pengadaan->update([
             'status'=>'Selesai',
             'biaya_transport'=>$request->biaya_transport,
             'tanggal_selesai'=>date('Y-m-d'),
         ]);
-        return redirect()->back()->with('success_msg', 'Pengadaan berhasil diverifikasi');
+        $pengadaan->load('kegudang');
+        foreach ($pengadaan->kegudang as $detail) {
+            $gd = GudangDetail::where('id_jenis_beras', $pengadaan->id_jenis_beras)
+            ->where('id_gudang', $detail->id_gudang)
+            ->first();
+            if(is_null($gd)){
+                $gd = GudangDetail::create([
+                    'id_jenis_beras'=>$pengadaan->id_jenis_beras,
+                    'id_gudang'=>$detail->id_gudang,
+                    'jml_beras'=>$pengadaan->jenis_pengadaan == 'Beras' ? $detail->jumlah : 0,
+                    'jml_gabah'=>$pengadaan->jenis_pengadaan == 'Gabah' ? $detail->jumlah : 0,
+                ]);
+            }
+            if($pengadaan->jenis_pengadaan == 'Beras')
+                $gd->jml_beras += $detail->jumlah;
+            else
+                $gd->jml_gabah += $detail->jumlah;
+            $gd->save();
+        }
+        return redirect()->back()->with('success_msg', 'Pengadaan selesai :)');
     }
 }

@@ -55,7 +55,7 @@
             @if(Auth::user()->role == 'Manajer')
             <a href="#" onclick="verifikasi(event, '{{route('pengadaan.verifikasi',[$d->id])}}')" class="btn btn-flat btn-warning">Verifikasi</a>
             @endif
-            @elseif($d->status == 'Dalam pengerjaan')
+            @elseif($d->status == 'Dalam pengerjaan' && Auth::user()->role == 'Gudang')
             <a onclick="showModal(event,{{$d->id}})" class="btn bg-maroon btn-flat">Selesai</a>
             @endif
         </td>
@@ -80,16 +80,25 @@
     }
 
     function showModal(e,id){
-        e.preventDefault();
+        if(e != null)
+            e.preventDefault();
         $('.modal').modal('show');
-        $('#modal-form').attr('action',$('#modal-form').attr('action')+'/'+id)
+        $('#modal-form').attr('action',$('#modal-form').attr('action')+'/'+id);
+        $('#modal-form').find('[name="id_selesai"]').val(id);
     }
+
+    @if($errors->has('biaya_transport'))
+
+    showModal(event, {{old('id_selesai')}});
+
+    @endif
 </script>
 @endpush
 
 @section('modal')
 
 <form id="modal-form" action="{{ url('pengadaan/selesai') }}" method="post" role="form" class="form-horizontal">
+    <input type="hidden" name="id_selesai">
     <div class="modal fade" id="modal-selesai" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -104,10 +113,10 @@
                     @method('put')
                     <input type="hidden" name="id_penggilingan">
                     <div class="row">
-                        <div class="form-group {{$errors->has('biaya_transport' ? 'has-error' : '')}}">
+                        <div class="form-group {{$errors->has('biaya_transport') ? 'has-error' : ''}}">
                             <label for="biaya_transport" class="col-sm-4 control-label">Biaya Transportasi</label>
                             <div class="col-sm-6">
-                                <input required="required" name="biaya_transport" value="{{old('biaya_transport')}}" type="number" class="form-control" id="biaya_transport" placeholder="Biaya Transportasi">
+                                <input required="required" name="biaya_transport" value="{{old('biaya_transport')}}" type="number" class="form-control" id="biaya_transport" min="1000" placeholder="Biaya Transportasi">
                                 @if($errors->has('biaya_transport'))
                                 <span class="help-block">{{$errors->first('biaya_transport')}}</span>
                                 @endif
