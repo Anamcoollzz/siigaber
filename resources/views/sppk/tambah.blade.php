@@ -23,7 +23,7 @@
 								<div class="form-group @if($errors->has('keterangan')) has-error @endif">
 									<label for="keterangan" class="col-sm-3 control-label">Keterangan</label>
 									<div class="col-sm-6">
-										<textarea name="keterangan" type="text" class="form-control" id="keterangan" placeholder="Keterangan Tujuan Penggunaan SPPK">{{old('keterangan')}}</textarea>
+										<textarea name="keterangan" required="required" type="text" class="form-control" id="keterangan" placeholder="Keterangan Tujuan Penggunaan SPPK">{{old('keterangan')}}</textarea>
 										@if($errors->has('keterangan'))<span class="help-block">{{$errors->first('keterangan')}}</span>@endif
 									</div>
 								</div>
@@ -87,7 +87,10 @@
 
 	function randomDate(start, end) {
 		var d = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()))
-		return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();
+		var tgl = d.getDate();
+		if(tgl < 10)
+			tgl = '0'+tgl;
+		return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+tgl;
 	}
 
 	function makeid() {
@@ -121,8 +124,14 @@
 			$(this).val(Math.floor(Math.random() * 50));
 		});
 		$('.tanggal').each(function(item){
-			$(this).val(randomDate(new Date(), new Date('2018-11-12')));
+			$(this).val(randomDate(new Date(), new Date('2018-12-31')));
 		});
+		$('.rute').each(function(item){
+			var items = ['Sulit','Sedang','Mudah'];
+			var ran = items[Math.floor(Math.random()*items.length)];
+			$(this).val(ran);
+		});
+		$('[name="keterangan"]').val(makeid());
 	}
 
 </script>

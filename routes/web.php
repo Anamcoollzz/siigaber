@@ -24,6 +24,9 @@ Route::middleware(\App\Http\Middleware\WajibMasuk::class)->group(function(){
 	Route::get('/sppk/{sppk}/prioritas', 'SppkController@prioritas')->name('sppk.prioritas');
 	Route::post('/sppk/{sppk}/prioritas', 'SppkController@prioritasStore')->name('sppk.prioritas-store');
 	Route::get('/sppk/{sppk}/prioritas-sub', 'SppkController@prioritasSub')->name('sppk.prioritas-sub');
+	Route::post('/sppk/{sppk}/prioritas-sub', 'SppkController@prioritasSubStore')->name('sppk.prioritas-sub-store');
+	Route::get('/sppk/{sppk}/proses', 'SppkController@proses')->name('sppk.proses');
+	Route::get('/sppk/{sppk}/hasil', 'SppkController@hasil')->name('hasil');
 
 });
 

@@ -16,6 +16,7 @@ class CreateSppkPrioritasKategori extends Migration
         Schema::create('sppk_prioritas_kategori', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nama');
+            $table->tinyInteger('prioritas');
             $table->integer('id_kategori')->unsigned();
             $table->foreign('id_kategori')->references('id')->on('sppk_kategori')->onUpdate('cascade')->onDelete('cascade');
             $table->integer('id_sppk')->unsigned();

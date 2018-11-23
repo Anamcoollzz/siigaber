@@ -68,6 +68,19 @@
 						@endif
 					</div>
 				</div>
+				<div class="form-group @if($errors->has('tanggal')) has-error @endif">
+					<label for="rute" class="col-sm-4 control-label">Pilih Jenis Rute</label>
+					<div class="col-sm-6">
+						<select name="rute[]" id="rute" class="form-control rute">
+							<option value="Mudah">Mudah</option>
+							<option value="Sedang">Sedang</option>
+							<option value="Sulit">Sulit</option>
+						</select>
+						@if($errors->has('rute'))
+						<span class="help-block">{{$errors->first('rute')}}</span>
+						@endif
+					</div>
+				</div>
 			</div>
 		</div>
 		@isset($hapus)

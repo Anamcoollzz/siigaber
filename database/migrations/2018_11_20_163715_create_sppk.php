@@ -17,6 +17,7 @@ class CreateSppk extends Migration
             $table->increments('id');
             $table->text('keterangan');
             $table->string('teratas');
+            $table->text('hasil');
             $table->timestamps();
         });
     }

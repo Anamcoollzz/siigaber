@@ -26,7 +26,9 @@
         <td>{{$d->teratas}}</td>
         <td>{{$d->keterangan}}</td>
         <td>
-            
+            @if($d->id_teratas)
+            <a href="{{ route('hasil',[$d->id]) }}" class="btn btn-primary btn-flat">Hasil</a>
+            @endif
         </td>
     </tr>
     @endforeach

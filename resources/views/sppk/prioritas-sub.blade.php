@@ -3,7 +3,7 @@
 <div class="content-wrapper">
 	@include('page_header2')
 	<section class="content">
-		<form action="{{ route('sppk.prioritas-store',[$d->id]) }}" method="post" class="form-horizontal">
+		<form action="{{ route('sppk.prioritas-sub-store',[$d->id]) }}" method="post" class="form-horizontal">
 			@csrf
 			<div class="row">
 				@include('success_msg')
@@ -19,15 +19,20 @@
 						</div>
 
 						<div class="box-body">
-							@foreach ($kategori as $k)
-							{{$k->nama}}
+							@foreach ($d->prioritaskategori as $kategori)
+							<h4 class="text-center">{{$kategori->nama}}</h4>
+							<hr>
+							@foreach ($kategori->prioritaskriteria as $kriteria)
+							{{$kriteria->nama}}
 							<ul class="example">
-								@foreach ($k->kriteria as $q)
-								<li>
-									<input class="form-control" readonly="readonly" name="prioritas[{{$k->id}}][]" type="text" value="{{$q->nama}}">
+								@foreach ($kriteria->kriteria->subkriteria as $sub)
+								<li style="cursor: move;">
+									{{$sub->nama}}
+									<input type="hidden" name="prioritas[{{$kategori->id}}][{{$kriteria->id}}][]" type="text" value="{{$sub->id}}">
 								</li>
 								@endforeach
 							</ul>
+							@endforeach
 							@endforeach
 							<div class="alert alert-info">
 								Drag dan drop pada titik di kiri

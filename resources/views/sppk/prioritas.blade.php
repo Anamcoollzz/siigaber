@@ -25,7 +25,7 @@
 								@foreach ($k->kriteria as $q)
 								<li>
 									{{$q->nama}}
-									<input type="hidden" name="prioritas[{{$k->id}}][]" value="{{$q->nama}}">
+									<input type="hidden" name="prioritas[{{$k->id}}][]" value="{{$q->id}}">
 								</li>
 								@endforeach
 							</ul>
